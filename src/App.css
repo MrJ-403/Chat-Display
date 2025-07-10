@@ -46,6 +46,19 @@ input:not([type="file"]), input[type="file"]::file-selector-button {
   color: white;
 }
 
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color:white;
+  background-color: white;
+  border: 1px solid royalblue;
+  border-radius: 10px;
+  margin: 2px;
+  padding: 4px;
+  font-family: monospace, sans-serif;
+  color: white;
+  font-size: 1.5em;
+
+}
+
 .protrait-only {
   display: block;
 }
