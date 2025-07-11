@@ -1,0 +1,58 @@
+.notif-container {
+    position: fixed;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin: auto;
+    width: fit-content;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    animation: slide-in 5s ease-in-out;
+}
+
+.notif-title {
+    font-size: 20px;
+}
+
+.notif-message {
+    font-size: 15px;
+}
+
+.notif-small-box {
+    width: 0%;
+    height: 2px;
+    background-color: white;
+    margin: 0px;
+    padding: 0px;
+    animation: progress-bar 5s ease-in;
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateY(0%);
+    }
+    10%, 90% {
+        transform: translateY(-150%);
+    }
+    
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes progress-bar {
+    0% {
+        width: 0%;
+        background-color: white;
+    }
+    90%, 100% {
+        width: 100%;
+        background-color: royalblue;
+    }
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect, type JSX } from 'react'
 import './App.css'
 import Message from './Message'
+import Notification from './Notification'
 
 function App() {
   const [file, setFile] = useState<File | null>()
@@ -8,6 +9,7 @@ function App() {
   const [name, setName] = useState<string>('')
   const [filter, setFilter] = useState<string>('')
   const [idList, setIdList] = useState<number[]>([])
+  const [pushNote, setPushNote] = useState<boolean>(false)
 
   const reader = new FileReader()
   let lastSender = ""
@@ -44,8 +46,9 @@ function App() {
       reader.readAsText(file)
     }
     else if (file) {
-      // (document.getElementById("file") as HTMLInputElement).value = ""
-      alert("Please select a name first then the file...")
+      (document.getElementById("file") as HTMLInputElement).value = ""
+      // alert("Please select a name first then the file...")
+      setPushNote(true)
     }
   }, [file])
 
@@ -65,7 +68,6 @@ function App() {
       if(inpDate)
       {
         let year: number = -1, month: number = -1, day: number = -1;
-        // inpDate.setMonth(inpDate.getMonth()+1);
         dates.map((date, index) => {
           if(year===-1 && date.getFullYear() === inpDate.getFullYear())
             year = index;
@@ -88,6 +90,7 @@ function App() {
 
   return (
     <>
+      {pushNote ? <Notification title="Note:" message="Please add a Name before selecting a File" func={setPushNote}/> : <></>}
       <div className='header'>
         <input type="text" name="name" id="name" placeholder="Name" required
           onChange={(e) => setName(e.target.value)} />
