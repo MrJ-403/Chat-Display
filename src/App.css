@@ -36,6 +36,18 @@ body {
   overflow-y: scroll;
 } 
 
+.controles {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
 input:not([type="file"]), input[type="file"]::file-selector-button {
   background-color: rgb(10,10,10);
   border: 1px solid royalblue;

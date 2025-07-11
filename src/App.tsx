@@ -36,10 +36,15 @@ function App() {
   }
 
   useEffect(() => {
-    if (file && name !== "")
+    if (file && name !== ""){
+      setDates([])
+      setInpDate(undefined)
+      setMessages([])
+      setIdList([])
       reader.readAsText(file)
+    }
     else if (file) {
-      (document.getElementById("file") as HTMLInputElement).value = ""
+      // (document.getElementById("file") as HTMLInputElement).value = ""
       alert("Please select a name first then the file...")
     }
   }, [file])
@@ -60,7 +65,7 @@ function App() {
       if(inpDate)
       {
         let year: number = -1, month: number = -1, day: number = -1;
-        inpDate.setMonth(inpDate.getMonth()+1);
+        // inpDate.setMonth(inpDate.getMonth()+1);
         dates.map((date, index) => {
           if(year===-1 && date.getFullYear() === inpDate.getFullYear())
             year = index;
@@ -90,21 +95,29 @@ function App() {
           onChange={(e) => { if (e.target.files) setFile(e.target.files[0]) }} />
         <hr />
         <p id="nom"></p>
-        <input type="search" name="search" id="search" placeholder="Search" required
-          onChange={(e) => setFilter(e.target.value)} />
-        Found {idList.length}
-        <div className="protrait-only"></div>
-        <input type="date" name="date" id="date"  required
-          onChange={(e) => 
-          {
-            setInpDate(new Date(e.target.value))
-          }} />
-        <input type="button" value="Previous" onClick={() => {
-          if (lastElementScrolledTo > 0) document.getElementById(idList[--lastElementScrolledTo].toString())?.scrollIntoView({ behavior: "smooth", block: "start" })
-        }} />
-        <input type="button" value="Next" onClick={() => {
-          if (idList.length - 1 > lastElementScrolledTo) document.getElementById(idList[++lastElementScrolledTo].toString())?.scrollIntoView({ behavior: "smooth", block: "start" })
-        }} />
+        <div className="controles">
+          <label htmlFor="date">Search by Date</label>
+          <input type="date" name="date" id="date"  required
+            onChange={(e) => 
+            {
+              setInpDate(new Date(e.target.value))
+            }}
+          />
+        </div>
+        <div className="controles">
+          <input type="search" name="search" id="search" placeholder="Search for a text" required
+            onChange={(e) => setFilter(e.target.value)} />
+          Found {idList.length}
+          <div className="protrait-only"></div>
+          <div className="search-buttons">
+            <input type="button" value="Previous" onClick={() => {
+              if (lastElementScrolledTo > 0) document.getElementById(idList[--lastElementScrolledTo].toString())?.scrollIntoView({ behavior: "smooth", block: "start" })
+              }} />
+            <input type="button" value="Next" onClick={() => {
+              if (idList.length - 1 > lastElementScrolledTo) document.getElementById(idList[++lastElementScrolledTo].toString())?.scrollIntoView({ behavior: "smooth", block: "start" })
+              }} />
+          </div>
+        </div>
       </div>
       <div id="messages">
         {messages}
@@ -120,7 +133,7 @@ function App() {
 
     const date: Date = new Date(
       Number.parseInt(tempDate.substring(tempDate.lastIndexOf('/') + 1)),
-      Number.parseInt(tempDate.substring(tempDate.indexOf('/') + 1, tempDate.indexOf('/', tempDate.indexOf('/') + 1))),
+      Number.parseInt(tempDate.substring(tempDate.indexOf('/') + 1, tempDate.indexOf('/', tempDate.indexOf('/') + 1)))-1,
       Number.parseInt(tempDate.substring(0, tempDate.indexOf('/')))
     );
 
