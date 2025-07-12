@@ -91,15 +91,37 @@ function App() {
   return (
     <>
       {pushNote ? <Notification title="Note:" message="Please add a Name before selecting a File" func={setPushNote}/> : <></>}
-      <div className='header'>
+      <div className="first-contorls">
         <input type="text" name="name" id="name" placeholder="Name" required
+          onChange={(e) => setName(e.target.value)} />
+        <p>Select a file in WhatsApp export format</p>
+        <input type="file" name="file" id="file" accept=".txt" required
+          onChange={(e) => { 
+            if (name!=="" && e.target.files) {
+              for(let i = 1; i >= 0; i--)
+                document.getElementsByClassName('hidden')[i].classList.remove('hidden')
+              document.getElementsByClassName('first-contorls')[0].classList.add('hidden')
+            }
+            if (e.target.files) setFile(e.target.files[0])
+            e.target.value = ""
+            }} />
+      </div>
+      <div className='header hidden'>
+        {/* <input type="text" name="name" id="name" placeholder="Name" required
           onChange={(e) => setName(e.target.value)} />
         <input type="file" name="file" id="file" accept=".txt" required
           onChange={(e) => { if (e.target.files) setFile(e.target.files[0]) }} />
-        <hr />
-        <p id="nom"></p>
+        <hr /> */}
         <div className="controles">
-          <label htmlFor="date">Search by Date</label>
+          <p id="nom"></p>
+          <input type="button" value="Change File" onClick={() => {
+              document.getElementsByClassName('first-contorls')[0].classList.remove('hidden')
+              document.getElementsByClassName('header')[0].classList.add('hidden')
+              document.getElementById('messages')?.classList.add('hidden')
+          }}/>
+        </div>
+        <div className="controles">
+          <label htmlFor="date">Jump to Date</label>
           <input type="date" name="date" id="date"  required
             onChange={(e) => 
             {
@@ -122,7 +144,7 @@ function App() {
           </div>
         </div>
       </div>
-      <div id="messages">
+      <div id="messages" className='hidden'>
         {messages}
       </div>
     </>

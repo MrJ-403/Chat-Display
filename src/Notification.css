@@ -36,11 +36,13 @@
 @keyframes slide-in {
     0% {
         transform: translateY(0%);
+        -webkit-font-smoothing: antialiased;
     }
+    
     10%, 90% {
         transform: translateY(-150%);
     }
-    
+
     100% {
         transform: translateY(0%);
     }
